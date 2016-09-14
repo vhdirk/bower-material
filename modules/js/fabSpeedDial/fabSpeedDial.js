@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.1-master-7cdd32a
+ * v1.1.1-rc.1
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -514,7 +514,7 @@
         runAnimation(element);
         delayDone(done);
       }
-    };
+    }
   }
 
   function MdFabSpeedDialScaleAnimation($timeout) {
@@ -557,7 +557,7 @@
         runAnimation(element);
         delayDone(done);
       }
-    };
+    }
   }
 })();
 

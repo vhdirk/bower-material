@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.1-master-7cdd32a
+ * v1.1.1-rc.1
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -36,7 +36,7 @@ angular
  * @usage
  * <hljs lang="js">
  * (function(angular, undefined) {
- *   'use strict';
+ *   ‘use strict’;
  *
  *   angular
  *       .module('demoApp', ['ngMaterial'])
@@ -74,9 +74,11 @@ angular
  *         });
  *   }
  *
- *   function DialogController(MdPanelRef) {
+ *   function DialogController(MdPanelRef, toppings) {
+ *     var toppings;
+ *
  *     function closeDialog() {
- *       if (MdPanelRef) MdPanelRef.close();
+ *       MdPanelRef && MdPanelRef.close();
  *     }
  *   }
  * })(angular);
@@ -536,10 +538,8 @@ angular
  * xPosition must be one of the following values available on
  * $mdPanel.xPosition:
  *
- *
  * CENTER | ALIGN_START | ALIGN_END | OFFSET_START | OFFSET_END
  *
- * <pre>
  *    *************
  *    *           *
  *    *   PANEL   *
@@ -552,14 +552,12 @@ angular
  * C: CENTER
  * D: ALIGN_END (for LTR displays)
  * E: OFFSET_END (for LTR displays)
- * </pre>
  *
  * yPosition must be one of the following values available on
  * $mdPanel.yPosition:
  *
  * CENTER | ALIGN_TOPS | ALIGN_BOTTOMS | ABOVE | BELOW
  *
- * <pre>
  *   F
  *   G *************
  *     *           *
@@ -573,7 +571,6 @@ angular
  * H: CENTER
  * I: ALIGN_BOTTOMS
  * J: ABOVE
- * </pre>
  *
  * @param {string} xPosition
  * @param {string} yPosition
@@ -607,7 +604,7 @@ angular
 
 
 /**
- * @ngdoc type
+ * @ngdoc object
  * @name MdPanelAnimation
  * @description
  * Animation configuration object. To use, create an MdPanelAnimation with the

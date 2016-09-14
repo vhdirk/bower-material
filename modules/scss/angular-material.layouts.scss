@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.1-master-7cdd32a
+ * v1.1.1-rc.1
  */
 $font-family: Roboto, 'Helvetica Neue', sans-serif !default;
 $font-size:   10px !default;
@@ -17,6 +17,7 @@ $body-font-size-base:      rem(1.400) !default;
 $caption-font-size-base:   rem(1.200) !default;
 $baseline-grid:            8px !default;
 $layout-gutter-width:      ($baseline-grid * 2) !default;
+$layout-breakpoint-xxs:    480px !default;
 $layout-breakpoint-xs:     600px !default;
 $layout-breakpoint-sm:     960px !default;
 $layout-breakpoint-md:     1280px !default;
@@ -91,13 +92,15 @@ $checkbox-width: 20px !default;
 $checkbox-height: $checkbox-width !default;
 $checkbox-border-radius: 2px !default;
 $checkbox-border-width: 2px !default;
-// Typography
-// ------------------------------
-
-//-- Must be defined before $font-size.
+// Function
+//-- Must be defined before variables
 @function rem($multiplier) {
+  $font-size: 10px;
   @return $multiplier * $font-size;
 }
+
+// Typography
+// ------------------------------
 
 
 
@@ -951,6 +954,7 @@ $checkbox-border-width: 2px !default;
  *
  *  hide means hide everywhere
  *  Sizes:
+ *         $layout-breakpoint-xxs:    480px !default;
  *         $layout-breakpoint-xs:     600px !default;
  *         $layout-breakpoint-sm:     960px !default;
  *         $layout-breakpoint-md:     1280px !default;
@@ -958,13 +962,33 @@ $checkbox-border-width: 2px !default;
  */
 
 
-@media (max-width: $layout-breakpoint-xs - 1) {
-  // Xtra-SMALL  SCREEN
-  .hide-xs, .hide {
-    &:not(.show-xs):not(.show) {
+@media (max-width: $layout-breakpoint-xxs - 1) {
+  // XXtra-SMALL  SCREEN
+  .hide-xxs, .hide {
+    &:not(.show-xxs):not(.show) {
       display: none;
     }
   }
+  @include layouts_for_breakpoint(xxs);
+}
+
+@media (min-width: $layout-breakpoint-xxs) {
+  // BIGGER THAN XXtra-SMALL SCREEN
+  @include layouts_for_breakpoint(gt-xxs);
+
+}
+
+
+@media (min-width: $layout-breakpoint-xxs) and (max-width: $layout-breakpoint-xs - 1) {
+  .hide, .hide-gt-xxs {
+    &:not(.show-gt-xxs):not(.show-xs):not(.show) {
+      display: none;
+    }
+  }
+  .hide-xs:not(.show-gt-xxs):not(.show-xs):not(.show) {
+    display: none;
+  }
+
   @include layouts_for_breakpoint(xs);
 }
 
@@ -975,12 +999,12 @@ $checkbox-border-width: 2px !default;
 }
 
 @media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-sm - 1) {
-  .hide, .hide-gt-xs {
-    &:not(.show-gt-xs):not(.show-sm):not(.show) {
+  .hide, .hide-gt-xxs, .hide-gt-xs {
+    &:not(.show-gt-xxs):not(.show-gt-xs):not(.show-sm):not(.show) {
       display: none;
     }
   }
-  .hide-sm:not(.show-gt-xs):not(.show-sm):not(.show) {
+  .hide-sm:not(.show-sm):not(.show-gt-xs):not(.show-gt-xxs):not(.show) {
     display: none;
   }
 
@@ -995,12 +1019,12 @@ $checkbox-border-width: 2px !default;
 
 @media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md - 1) {
   // MEDIUM SCREEN
-  .hide, .hide-gt-xs, .hide-gt-sm {
-    &:not(.show-gt-xs):not(.show-gt-sm):not(.show-md):not(.show) {
+  .hide, .hide-gt-xxs, .hide-gt-xs, .hide-gt-sm {
+    &:not(.show-gt-xxs):not(.show-gt-xs):not(.show-gt-sm):not(.show-md):not(.show) {
       display: none;
     }
   }
-  .hide-md:not(.show-md):not(.show-gt-sm):not(.show-gt-xs):not(.show) {
+  .hide-md:not(.show-md):not(.show-gt-sm):not(.show-gt-xs):not(.show-gt-xxs):not(.show) {
     display: none;
   }
   @include layouts_for_breakpoint(md);
@@ -1013,12 +1037,12 @@ $checkbox-border-width: 2px !default;
 
 @media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg - 1) {
   // LARGE SCREEN
-  .hide,.hide-gt-xs, .hide-gt-sm, .hide-gt-md {
-    &:not(.show-gt-xs):not(.show-gt-sm):not(.show-gt-md):not(.show-lg):not(.show) {
+  .hide,.hide-gt-xxs, .hide-gt-xs, .hide-gt-sm, .hide-gt-md {
+    &:not(.show-gt-xxs):not(.show-gt-xs):not(.show-gt-sm):not(.show-gt-md):not(.show-lg):not(.show) {
       display: none;
     }
   }
-  .hide-lg:not(.show-lg):not(.show-gt-md):not(.show-gt-sm):not(.show-gt-xs):not(.show) {
+  .hide-lg:not(.show-lg):not(.show-gt-md):not(.show-gt-sm):not(.show-gt-xs):not(.show-gt-xxs):not(.show) {
     display: none;
   }
 
@@ -1030,21 +1054,13 @@ $checkbox-border-width: 2px !default;
   @include layouts_for_breakpoint(xl);
 
   // BIGGER THAN LARGE SCREEN
-  .hide, .hide-gt-xs, .hide-gt-sm, .hide-gt-md, .hide-gt-lg {
-    &:not(.show-gt-xs):not(.show-gt-sm):not(.show-gt-md):not(.show-gt-lg):not(.show-xl):not(.show) {
+  .hide, .hide-gt-xxs, .hide-gt-xs, .hide-gt-sm, .hide-gt-md, .hide-gt-lg {
+    &:not(.show-gt-xxs):not(.show-gt-xs):not(.show-gt-sm):not(.show-gt-md):not(.show-gt-lg):not(.show-xl):not(.show) {
       display: none;
     }
   }
-  .hide-xl:not(.show-xl):not(.show-gt-lg):not(.show-gt-md):not(.show-gt-sm):not(.show-gt-xs):not(.show) {
+  .hide-xl:not(.show-xl):not(.show-gt-lg):not(.show-gt-md):not(.show-gt-sm):not(.show-gt-xs):not(.show-gt-xxs):not(.show) {
     display: none;
   }
 
-}
-
-// General printing Rules
-@media print {
-
-  .hide-print:not(.show-print):not(.show) {
-    display: none !important;
-  }
 }
